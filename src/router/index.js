@@ -1,19 +1,47 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
+const Login = () => import('@/views/login/login.vue')
+const Layout = () => import('@/views/layout/index.vue')
+const Home = () => import('@/views/home/Home.vue')
+const MyProfile = () => import('@/views/myprofile/MyProfile.vue')
+const Question = () => import('@/views/question/Question.vue')
+const Video = () => import('@/views/video/Video.vue')
+const GoLogin = () => import('@/views/myprofile/GoLogin.vue')
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: HomeView
+    // 重定向
+    redirect: '/login'
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    path: '/login',
+    component: Login,
+  },
+  {
+    path: '/layout',   
+    component: Layout,
+    redirect: '/home', /* 设置默认子路由为 Home 只能有一个 */
+    children: [
+      {
+        path: '/home',  
+        component: Home
+      },
+      {
+        path: '/question',
+        component: Question,
+      },
+      {
+        path: '/myprofile',
+        component: MyProfile,
+      },
+      {
+        path: '/video',
+        component: Video,
+      },
+      {
+        path: '/gologin',
+        component: GoLogin
+      },
+    ]
   }
 ]
 
